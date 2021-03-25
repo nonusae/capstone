@@ -6,6 +6,14 @@ const URL = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-
 const ContextProvider = ({children}) => {
   const [allPhotos, setAllPhotos] = useState([])
 
+  const toggleFavorite = (id) => {
+    const updatedPhotos = allPhotos.map(photo => (
+      photo.id === id ? {...photo, isFavorite: !photo.isFavorite} : {...photo}
+    ))
+
+    setAllPhotos(updatedPhotos)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(URL)
@@ -18,7 +26,7 @@ const ContextProvider = ({children}) => {
   }, [])
 
   return (
-    <Context.Provider value={{allPhotos}}>
+    <Context.Provider value={{allPhotos, toggleFavorite}}>
       {children}
     </Context.Provider>
   )
