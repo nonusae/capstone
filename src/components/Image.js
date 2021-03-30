@@ -8,16 +8,18 @@ function Image({className, img}) {
   const heartIcon = () => {
     if (img.isFavorite) {
       return <i onClick={() => toggleFavorite(img.id)} className='ri-heart-fill favorite'></i>
-    } else {
+    } else if (hovered) {
       return hovered && <i onClick={() => toggleFavorite(img.id)} className='ri-heart-line favorite'></i>
     }
   }
 
   const cartIcon = () => {
-    if (cartItems.some(item => item === img)) {
+    const alreadyInCart = cartItems.some(item => item.id === img.id)
+
+    if (alreadyInCart) {
       return <i className="ri-shopping-cart-fill cart"></i>
-    } else {
-      return hovered && <i className="ri-add-circle-line cart" onClick={() => addItemToCart(img)}/>
+    } else if (hovered){
+      return <i className="ri-add-circle-line cart" onClick={() => addItemToCart(img)}/>
     }
   }
 
