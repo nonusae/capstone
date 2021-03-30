@@ -19,6 +19,12 @@ const ContextProvider = ({children}) => {
     setCartItems(cartItems => [...cartItems, item])
   }
 
+  const removeItemFromCart = (item) => {
+    setCartItems(cartItems => cartItems.filter(
+      cartItem => cartItem.id !== item.id
+    ))
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(URL)
@@ -31,7 +37,7 @@ const ContextProvider = ({children}) => {
   }, [])
 
   return (
-    <Context.Provider value={{allPhotos, toggleFavorite, cartItems, addItemToCart}}>
+    <Context.Provider value={{allPhotos, toggleFavorite, cartItems, addItemToCart, removeItemFromCart}}>
       {children}
     </Context.Provider>
   )
